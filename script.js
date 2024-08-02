@@ -1,31 +1,12 @@
-const secondHand = document.querySelector('.second-hand')
-const minsHand = document.querySelector('.min-hand')
-const hourHand = document.querySelector('.hour-hand')
+function updateTime() {
+  const currentTime = new Date();
+  const hours = String(currentTime.getHours()).padStart(2, '0');
+  const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+  const seconds = String(currentTime.getSeconds()).padStart(2, '0');
 
-function setDate() {
-  const currentTime = new Date()
-  const seconds = currentTime.getSeconds()
-  const secondDeg = (seconds / 60) * 360 + 90
-  secondHand.style.transform = `rotate(${secondDeg}deg)`
-
-  const mins = currentTime.getMinutes()
-  const minsDeg = (mins / 60) * 360 + 90
-  minsHand.style.transform = `rotate(${minsDeg}deg)`
-
-  const hours = currentTime.getHours()
-  const hoursDeg = (hours / 12) * 360 + 90
-  hourHand.style.transform = `rotate(${hoursDeg}deg)`
-
-  if (seconds == 0) {
-    secondHand.style.transitionDuration = '0s'
-    minsHand.style.transitionDuration = '0s'
-    hourHand.style.transitionDuration = '0s'
-  } else {
-    secondHand.style.transitionDuration = '0.05s'
-    minsHand.style.transitionDuration = '0.05s'
-    hourHand.style.transitionDuration = '0.05s'
-  }
-
-  requestAnimationFrame(setDate)
+  const timeString = `${hours}:${minutes}:${seconds}`;
+  document.getElementById('timeDisplay').textContent = timeString;
 }
-setDate()
+
+setInterval(updateTime, 1000);
+updateTime();
